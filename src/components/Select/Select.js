@@ -60,7 +60,7 @@ const Label = styled.span`
 const StyledIcon = styled(Icon)`
     pointer-events: none;
     position: absolute;
-    right: 16px;
+    right: 10px;
     top: 50%;
     margin-top: -12px;
 `;
