@@ -7,30 +7,39 @@ import Icon from '../Icon';
 import VisuallyHidden from '../VisuallyHidden';
 
 const sizes = {
-    small: { iconSize: 16, wapperPadding: 4, fontSize: 14 },
-    large: { iconSize: 24, wrapperPadding: 8, fontSize: 18 },
+    small: { iconSize: 16, padding: 4, fontSize: 14 },
+    large: { iconSize: 24, padding: 8, fontSize: 18 },
 };
 
 const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
     const id = label.toLowerCase().split(' ').join('-');
-    const { iconSize = 16, wrapperPadding = 4, fontSize = 14 } = sizes[size];
-    const inputMargin = iconSize + iconSize / 2;
-    const inputWidth = width - inputMargin;
+    const styles = sizes[size];
+
+    if (!styles) {
+        throw new Error(
+            `Unknown size value for the IconInput: ${size}. Valid options are ${Object.keys(sizes).join(' | ')}`,
+        );
+    }
+
+    const inputMargin = styles.iconSize + styles.iconSize / 2;
+    const inputWidth = width - styles.inputMargin;
+
     return (
-        <Wrapper wrappertWidth={width} wrapperPadding={wrapperPadding}>
-            <Label htmlFor={id} iconSize={iconSize}>
-                <Icon id={icon} size={iconSize} />
+        <Wrapper
+            style={{
+                '--wrappertWidth': width + 'px',
+                '--wrapperPadding': styles.padding + 'px',
+                '--font-size': styles.fontSize + 'px',
+                '--input-width': inputWidth + 'px',
+                '--input-margin': inputMargin + 'px',
+                '--label-margin-top': `-${styles.iconSize / 2}px`,
+            }}
+        >
+            <Label htmlFor={id}>
+                <Icon id={icon} size={styles.iconSize} />
                 <VisuallyHidden as="span">{label}</VisuallyHidden>
             </Label>
-            <Input
-                fontSize={fontSize}
-                iconSize={iconSize}
-                id={id}
-                width={inputWidth}
-                margin={inputMargin}
-                type={'text'}
-                placeholder={placeholder}
-            />
+            <Input id={id} type={'text'} placeholder={placeholder} />
         </Wrapper>
     );
 };
@@ -39,8 +48,8 @@ const Wrapper = styled.div`
     position: relative;
     isolation: isolate;
     border-bottom: 1px solid ${COLORS.black};
-    padding: ${(p) => p.wrapperPadding}px;
-    width: ${(p) => p.wrappertWidth}px;
+    padding: var(--wrapperPadding);
+    width: var(--wrappertWidth);
     &:focus-within {
         outline-offset: 2px;
         outline: 2px solid hsla(218, 57%, 53%, 1);
@@ -49,12 +58,13 @@ const Wrapper = styled.div`
 `;
 
 const Input = styled.input`
-    margin-left: ${(p) => p.margin}px;
-    width: ${(p) => p.width}px;
+    width: var(--input-width);
+    margin-left: var(--input-margin);
     border: 0;
     font-weight: 700;
-    font-size: ${(p) => p.fontSize || 14}px;
+    font-size: var(--font-size);
     color: ${COLORS.gray700};
+
     &:placeholder-shown {
         font-weight: 400;
         color: ${COLORS.gray500};
@@ -70,7 +80,7 @@ const Input = styled.input`
 const Label = styled.label`
     position: absolute;
     top: 50%;
-    margin-top: -${(p) => p.iconSize / 2}px;
+    margin-top: var(--label-margin-top);
     color: ${COLORS.gray700};
 
     ${Wrapper}:hover & {
