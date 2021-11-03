@@ -26,6 +26,8 @@ const ProgressBar = ({ value, size }) => {
                 style={{
                     '--padding': styles.padding + 'px',
                     '--radius': styles.borderRadius + 'px',
+                    '--width': value + '%',
+                    '--height': styles.height + 'px',
                 }}
                 role={'progressbar'}
                 aria-valuenow={value}
@@ -34,7 +36,7 @@ const ProgressBar = ({ value, size }) => {
             >
                 <VisuallyHidden>{value}%</VisuallyHidden>
                 <BarWrapper>
-                    <Bar style={{ '--width': value + '%', '--height': styles.height + 'px' }} />
+                    <Bar />
                 </BarWrapper>
             </Wrapper>
         </>
