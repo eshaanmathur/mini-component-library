@@ -54,6 +54,7 @@ const SelectStyled = styled.select`
 const Label = styled.span`
     position: relative;
     pointer-events: none;
+    font-size: 1rem;
 `;
 
 const StyledIcon = styled(Icon)`
