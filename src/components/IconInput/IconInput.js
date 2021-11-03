@@ -36,7 +36,7 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
             }}
         >
             <Label htmlFor={id}>
-                <Icon id={icon} size={styles.iconSize} />
+                <Icon id={icon} size={styles.iconSize} strokeWidth={2} />
                 <VisuallyHidden as="span">{label}</VisuallyHidden>
             </Label>
             <Input id={id} type={'text'} placeholder={placeholder} />
