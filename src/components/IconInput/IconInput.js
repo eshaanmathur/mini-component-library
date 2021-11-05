@@ -7,8 +7,8 @@ import Icon from '../Icon';
 import VisuallyHidden from '../VisuallyHidden';
 
 const sizes = {
-    small: { iconSize: 16, padding: 4, fontSize: 14 },
-    large: { iconSize: 24, padding: 8, fontSize: 18 },
+    small: { iconSize: 16, padding: 4, fontSize: 14, spacing: 8 },
+    large: { iconSize: 24, padding: 8, fontSize: 18, spacing: 12 },
 };
 
 const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
@@ -21,17 +21,13 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
         );
     }
 
-    const inputMargin = styles.iconSize + styles.iconSize / 2;
-    const inputWidth = width - (inputMargin + 4);
-
     return (
         <Wrapper
             style={{
-                '--wrappertWidth': width + 'px',
-                '--wrapperPadding': styles.padding + 'px',
+                '--width': width + 'px',
+                '--padding': styles.padding + 'px',
+                '--padding-left': styles.iconSize + styles.spacing + 'px',
                 '--font-size': styles.fontSize + 'px',
-                '--input-width': inputWidth + 'px',
-                '--input-margin': inputMargin + 'px',
                 '--label-margin-top': `-${styles.iconSize / 2}px`,
             }}
         >
@@ -47,21 +43,14 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
 const Wrapper = styled.div`
     position: relative;
     isolation: isolate;
-    border-bottom: 1px solid ${COLORS.black};
-    padding: var(--wrapperPadding);
-    width: var(--wrappertWidth);
-    &:focus-within {
-        /* Native focus */
-        outline-offset: 2px;
-        outline: 1px dotted #212121;
-        outline: 5px auto -webkit-focus-ring-color;
-    }
 `;
 
 const Input = styled.input`
-    width: var(--input-width);
-    margin-left: var(--input-margin);
+    width: var(--width);
+    padding: var(--padding);
+    padding-left: var(--padding-left);
     border: 0;
+    border-bottom: 1px solid ${COLORS.black};
     font-weight: 700;
     font-size: var(--font-size);
     color: ${COLORS.gray700};
@@ -69,9 +58,6 @@ const Input = styled.input`
     &:placeholder-shown {
         font-weight: 400;
         color: ${COLORS.gray500};
-    }
-    &:focus {
-        outline: none;
     }
 
     ${Wrapper}:hover & {
