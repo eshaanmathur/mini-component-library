@@ -22,7 +22,7 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
     }
 
     const inputMargin = styles.iconSize + styles.iconSize / 2;
-    const inputWidth = width - styles.inputMargin;
+    const inputWidth = width - (inputMargin + 4);
 
     return (
         <Wrapper
