@@ -62,6 +62,10 @@ const Input = styled.input`
         color: ${COLORS.gray500};
     }
 
+    &:focus {
+        outline-offset: 2px;
+    }
+
     ${Wrapper}:hover & {
         color: ${COLORS.black};
     }
