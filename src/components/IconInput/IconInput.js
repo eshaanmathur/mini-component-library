@@ -51,9 +51,10 @@ const Wrapper = styled.div`
     padding: var(--wrapperPadding);
     width: var(--wrappertWidth);
     &:focus-within {
+        /* Native focus */
         outline-offset: 2px;
-        outline: 2px solid hsla(218, 57%, 53%, 1);
-        border-radius: 2px;
+        outline: 1px dotted #212121;
+        outline: 5px auto -webkit-focus-ring-color;
     }
 `;
 

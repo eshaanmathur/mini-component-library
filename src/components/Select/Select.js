@@ -30,9 +30,9 @@ const Wrapper = styled.div`
     color: ${COLORS.gray700};
 
     &:focus-within {
-        outline-offset: 0px;
-        outline: 2px solid hsla(218, 57%, 53%, 1);
-        border-radius: 2px;
+        /* Native focus */
+        outline: 1px dotted #212121;
+        outline: 5px auto -webkit-focus-ring-color;
     }
 
     &:hover {
