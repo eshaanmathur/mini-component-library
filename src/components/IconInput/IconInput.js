@@ -11,7 +11,7 @@ const sizes = {
     large: { iconSize: 24, padding: 8, fontSize: 18, spacing: 12 },
 };
 
-const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
+const IconInput = ({ label, icon, width = 250, size, placeholder, ...delegated }) => {
     const id = label.toLowerCase().split(' ').join('-');
     const styles = sizes[size];
 
@@ -26,6 +26,7 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
             style={{
                 '--width': width + 'px',
                 '--padding': styles.padding + 'px',
+                '--padding-bottom': `${styles.padding - 1}px`,
                 '--padding-left': styles.iconSize + styles.spacing + 'px',
                 '--font-size': styles.fontSize + 'px',
                 '--label-margin-top': `-${styles.iconSize / 2}px`,
@@ -35,7 +36,7 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
                 <Icon id={icon} size={styles.iconSize} strokeWidth={2} />
                 <VisuallyHidden as="span">{label}</VisuallyHidden>
             </Label>
-            <Input id={id} type={'text'} placeholder={placeholder} />
+            <Input id={id} type={'text'} placeholder={placeholder} {...delegated} />
         </Wrapper>
     );
 };
@@ -49,13 +50,14 @@ const Input = styled.input`
     width: var(--width);
     padding: var(--padding);
     padding-left: var(--padding-left);
-    border: 0;
+    padding-bottom: var(--padding-bottom);
+    border: none;
     border-bottom: 1px solid ${COLORS.black};
     font-weight: 700;
     font-size: var(--font-size);
     color: ${COLORS.gray700};
 
-    &:placeholder-shown {
+    &::placeholder {
         font-weight: 400;
         color: ${COLORS.gray500};
     }
